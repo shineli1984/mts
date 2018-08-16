@@ -1,6 +1,6 @@
 var Tuple2 = require('fantasy-tuples').Tuple2,
   daggy = require('daggy'),
-  State = daggy.tagged('run');
+  State = daggy.tagged('State', ['run']);
 
 // Methods
 State.of = function(a) {
@@ -49,7 +49,7 @@ State.prototype.ap = function(a) {
 
 // Transformer
 State.StateT = function(M) {
-  var StateT = daggy.tagged('run');
+  var StateT = daggy.tagged('StateT', ['run']);
   StateT.lift = function(m) {
     return StateT(function(b) {
       return m.map(function(c) {

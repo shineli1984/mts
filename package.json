@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {},
   "dependencies": {
-    "daggy": "0.0.1",
+    "daggy": "1.2.0",
     "fantasy-tuples": "^1.0.0",
     "q": "^1.5.1",
     "ramda": "^0.25.0"

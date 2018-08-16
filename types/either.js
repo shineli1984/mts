@@ -1,8 +1,8 @@
 'use strict';
-import {identity} from 'ramda'
+import {identity, map, compose} from 'ramda'
 const {tagged, taggedSum} = require('daggy');
 
-const Either = taggedSum({
+const Either = taggedSum('Either', {
   Left:  ['l'],
   Right: ['r']
 });
@@ -65,10 +65,10 @@ Either.prototype.traverse = function(f, p) {
 
 // Transformer
 Either.EitherT = function(M) {
-  const EitherT = tagged('run');
+  const EitherT = tagged('EitherT', ['run']);
 
   EitherT.lift = function(m) {
-    return EitherT(m)
+    return compose(EitherT, map(Either.Right))(m)
   };
 
   EitherT.prototype.fold = function(f, g) {
