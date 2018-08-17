@@ -71,6 +71,15 @@ Either.EitherT = function(M) {
     return compose(EitherT, map(Either.Right))(m)
   };
 
+  // MonadState
+  if (M.get) {
+    EitherT.get = EitherT.lift(M.get)
+  }
+
+  if (M.put) {
+    EitherT.put = EitherT.lift(M.put)
+  }
+
   EitherT.prototype.fold = function(f, g) {
     return this.run.chain((o) => M.of(o.fold(f, g)));
   };
@@ -78,10 +87,14 @@ Either.EitherT = function(M) {
     return EitherT(M.of(Either.Right(x)));
   };
   EitherT.prototype.swap = function() {
-    return this.fold(
-      (l) => Either.Right(l),
-      (r) => Either.Left(r)
-    );
+    return EitherT(
+      this.run.map(e =>
+        e.fold(
+          (l) => Either.Right(l),
+          (r) => Either.Left(r)
+        )
+      )
+    )
   };
   EitherT.prototype.bimap = function(f, g) {
     return this.fold(

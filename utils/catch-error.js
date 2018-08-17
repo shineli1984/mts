@@ -6,7 +6,7 @@ import M from '../types/either-t-state-t-promise'
 
 export default isErrorToCatch => f =>
   compose(
-    M.lift,
+    M,
     chain(compose(
       either =>
         either.fold(

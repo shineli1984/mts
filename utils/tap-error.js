@@ -11,7 +11,7 @@ export default isErrorToHandle => errorHandler =>
     swap,
     chain(err =>
       compose(
-        M.lift,
+        M,
         chain(compose(
           StateTPromise.lift,
           p => new Promise(resolve => {
@@ -21,9 +21,9 @@ export default isErrorToHandle => errorHandler =>
           }),
           when,
           ifElse(
-            state => isErrorToHandle(state)(err),
+            isErrorToHandle(err),
             errorHandler(err),
-            always(undefined)
+            always
           )
         )),
         always(StateTPromise.get)

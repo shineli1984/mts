@@ -6,7 +6,7 @@ import Either from '../types/either'
 import M from '../types/either-t-state-t-promise'
 
 export default f => compose(
-  M.lift,
+  M,
   chain(compose(
     either =>
       compose(

@@ -26,6 +26,16 @@ Reader.ReaderT = (M) => {
 
   ReaderT.lift = (m) => ReaderT(always(m))
 
+  // MonadState
+  if (M.get) {
+    ReaderT.get = ReaderT.lift(M.get)
+  }
+
+  if (M.put) {
+    ReaderT.put = ReaderT.lift(M.put)
+  }
+
+  // ReaderT
   ReaderT.of = (a) => {
     return ReaderT(_ => M.of(a))
   }

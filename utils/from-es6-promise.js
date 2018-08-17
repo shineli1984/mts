@@ -9,7 +9,7 @@ import M from "../types/either-t-state-t-promise"
 
 export default asyncFunction => compose(
   chain(compose(
-    M.lift,
+    M,
     StateTPromise.lift,
     p => new Promise(resolve => {
       p
