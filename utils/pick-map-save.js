@@ -1,0 +1,12 @@
+import { compose, map, pick } from 'ramda'
+import get from './get'
+import modifyAs from './modify-as'
+import fromEs6Promise from './from-es6-promise'
+
+export default propsToPick => asyncFunction => saveAs =>
+  compose(
+    modifyAs(saveAs),
+    fromEs6Promise(asyncFunction),
+    map(pick(propsToPick)),
+    get,
+  )
